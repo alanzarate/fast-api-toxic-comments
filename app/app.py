@@ -16,6 +16,21 @@ class Post(BaseModel):
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:4200",
+    "https://vdgutierrez.github.io/frontendToxic",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
+
+
 @app.post('/comment')
 def post_comment(post: Post):
     post.id = str(uuid())
